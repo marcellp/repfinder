@@ -8,8 +8,50 @@ var apiKeys = require('./api-keys');
 var parseString = require('xml2js').parseString;
 
 var findRep = function(req, res) {
-  geocodeAddress(
-      req.body.postcode + ' ' + req.body.city + ', ' + req.body.address, res);
+  // Verify the submitted content.
+  if (!req.body.address || !req.body.city || !req.body.postcode) {
+    returnError(res, 'Minden mezőt ki kell tölteni.');
+    return 1;
+  }
+
+  if (req.body.postcode < 1000 || req.body.postcode > 9999 ||
+      isNaN(req.body.postcode)) {
+    returnError(res, 'Az irányítószám nem megfelelő.');
+    return 1;
+  }
+
+  // Verify the CAPTCHA.
+  request.post(
+      {
+        url: 'https://www.google.com/recaptcha/api/siteverify',
+        form: {
+          secret: apiKeys.RECAPTCHA_API_KEY,
+          response: req.body.captcha
+        },
+        json: true
+      },
+      function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          try {
+            if (!body.success) {
+              returnError(
+                  res, 'Nem oldotta meg megfelelően a biztonsági kérdést.');
+            } else {
+              geocodeAddress(
+                  req.body.postcode + ' ' + req.body.city + ', ' +
+                      req.body.address,
+                  res);
+            }
+          } catch (err) {
+            returnError(
+                res,
+                'A szerver nem tudta megerősíteni a biztonsági kérdésre adott választ.');
+          }
+        } else {
+          returnError(
+              res, 'Hiba történt a biztonsági kérdés ellenőrzése során.');
+        }
+      });
 };
 
 // Geocodes the address, gets the information necessary for further tasks, and
