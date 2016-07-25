@@ -26,11 +26,19 @@ function geocodeAddress(addr, res) {
           var geocodeObj = body;
           var country, county;
           var location;
+          var addressComponents;
 
           // Let's go through each address component until we find
           // the country. If the address the user entered is not
           // in Hungary, return an error.
-          for (let comp of geocodeObj.results[0].address_components) {
+          try {
+            addressComponents = geocodeObj.results[0].address_components;
+          } catch (err) {
+            return returnError(
+                res, 'Hiba történt a címadatok vizsgálata közben.');
+          }
+
+          for (let comp of addressComponents) {
             // 'country' is the name of the country.
             if (comp.types[0] == 'country') {
               country = comp.long_name;
@@ -110,18 +118,27 @@ function findRepresentative(districtData, res) {
         if (!error && response.statusCode == 200) {
           // Convert the XML response into JSON.
           parseString(body, function(err, result) {
+            if (err) {
+              return returnError(
+                  res, 'Hiba történt képviselőadatok értelmezése közben.');
+            }
 
             // This is an array with all reps in it.
-            var rep_data = result.kepviselok.kepviselo;
-
-            for (var i = 0; i < rep_data.length; i++) {
-              // Find the representative corresponding to the county & the area
-              // within the county.
-              if (rep_data[i].$.vmegye === districtData[0] &&
-                  rep_data[i].$.vkorzet === districtData[1]) {
-                getRepData(rep_data[i].$.p_azon, districtData, res);
-                return 1;
+            try {
+              var rep_data = result.kepviselok.kepviselo;
+              for (var i = 0; i < rep_data.length; i++) {
+                // Find the representative corresponding to the county & the
+                // area
+                // within the county.
+                if (rep_data[i].$.vmegye === districtData[0] &&
+                    rep_data[i].$.vkorzet === districtData[1]) {
+                  getRepData(rep_data[i].$.p_azon, districtData, res);
+                  return 1;
+                }
               }
+            } catch (err) {
+              return returnError(
+                  res, 'A képviselőadatok jelenleg nem elérhetőek.');
             }
 
             return returnError(
@@ -144,22 +161,36 @@ function getRepData(id, districtData, res) {
       function(error, response, body) {
         if (!error && response.statusCode == 200) {
           parseString(body, function(err, result) {
-            var ret_object = {};
+            if (err) {
+              return returnError(
+                  res,
+                  'Hiba történt a képviselő adatainak értelmezése közben.');
+            }
 
-            ret_object.status = 'OK';
-            ret_object.details = {
-              name: result.kepviselo.nev[0].replace('\n', ''),
+            var retObject = {};
+
+            try {
+              var repData = result.kepviselo;
+            } catch (err) {
+              return returnError(
+                  res, 'A képviselő adatai jelenleg nem elérhetőek.');
+            }
+
+            retObject.status = 'OK';
+            retObject.details = {
+              name: repData.nev[0].replace('\n', ''),
               district: {county: districtData[0], district: districtData[1]},
-              photo: result.kepviselo.fenykep[0].replace('\n', ''),
-              email: result.kepviselo.email[0].replace('\n', ''),
-              resume: result.kepviselo.oneletrajz[0].replace('\n', ''),
-              website: result.kepviselo.honlap[0].replace('\n', '')
+              photo: repData.fenykep[0].replace('\n', ''),
+              email: repData.email[0].replace('\n', ''),
+              resume: repData.oneletrajz[0].replace('\n', ''),
+              website: repData.honlap[0].replace('\n', '')
             };
 
-            res.json(ret_object);
+            res.json(retObject);
           });
         } else {
-          return returnError(res, 'Hiba történt a képviselő adatainak lekérése közben.');
+          return returnError(
+              res, 'Hiba történt a képviselő adatainak lekérése közben.');
         }
       });
 }
