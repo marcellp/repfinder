@@ -19,9 +19,7 @@ app.use(morgan('combined'));
 
 app.get('/', function(req, res) { res.render('body'); });
 
-app.post('/get-details', function(req, res) {
-	api.findRep(req, res);
-});
+app.post('/get-details', function(req, res) { api.findRep(req, res); });
 
 app.use(function(req, res) {
   res.type('text/html');
