@@ -40,3 +40,6 @@ bower_components
 
 # Optional REPL history
 .node_repl_history
+
+# Secret API keys
+api-keys.js

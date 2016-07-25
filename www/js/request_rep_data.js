@@ -1,5 +1,30 @@
 $(function() {
-  var successHandler = function() { console.log('A OK'); };
+  var successHandler = function(data) {
+    if (data.status !== 'OK') {
+      printError(data.message);
+      return 1;
+    }
+
+    $('#form').hide();
+
+    $('#name').html(data.details.name);
+    $('#photo').attr('src', data.details.photo);
+
+    $('#email-address').html(data.details.email);
+    $('#email-address').attr('href', 'mailto:' + data.details.email);
+
+    $('#resume').attr('href', data.details.resume);
+
+    $('#website').attr('href', data.details.website);
+    $('#website').html(data.details.website);
+
+    $('#district-data')
+        .html(
+            data.details.district.county + ', ' +
+            data.details.district.district + '. sz. választókerület');
+
+    $('#results').show();
+  };
 
   function printError(msg) {
     $('#input-error').html(msg);
@@ -7,6 +32,7 @@ $(function() {
   }
 
   $('#input-error').hide();
+  $('#results').hide();
   $('#fetch-data')
       .click(function(event) {
         var address = $('#address').val();
@@ -37,5 +63,11 @@ $(function() {
         });
 
         $('#input-error').hide(200);
+      });
+
+  $('#back-to-input')
+      .click(function(event) {
+        $('#results').hide();
+        $('#form').show();
       });
 });

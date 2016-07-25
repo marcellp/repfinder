@@ -39,6 +39,9 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "request": "^2.74.0",
+    "turf": "^3.0.14",
+    "xml2js": "^0.4.17"
   }
 }

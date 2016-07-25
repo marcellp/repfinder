@@ -54,25 +54,40 @@ header {
 			.submit-form {
 				padding: 27px 30px 27px;
 
-				label {
-					letter-spacing: .15em;
-					font-size: 12px;
-					color: #555;
-					font-weight: 400;
-					margin-bottom: 7px;
-					display: inline-block;
-					max-width: 100%;    
-					text-transform: uppercase;
-				}
-
 				.input-error {
 					background-color: #fff;
 					border-color: #ebccd1;
 					color: #a94442;
 				}
 			}
+
+			.result-box {
+				padding: 27px 30px 27px;
+				font-size: 18px;
+
+				h1#name {
+					font-size: 40px;
+					font-family: 'Roboto Slab', serif;
+				}
+
+				.details-label {
+					font-size: 18px;
+					letter-spacing: normal;
+				}
+			}
 		}
 	}
+}
+
+label {
+	letter-spacing: .15em;
+	font-size: 12px;
+	color: #555;
+	font-weight: 400;
+	margin-bottom: 7px;
+	display: inline-block;
+	max-width: 100%;    
+	text-transform: uppercase;
 }
 
 @keyframes fadeInUp {
