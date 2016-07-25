@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
 var gconfig = require('./gulp/config');
+var config = require('config');
 var api = require('./repfinder_handler');
 var app = express();
 
@@ -12,7 +13,7 @@ app.disable = ('x-powered-by');
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.get('port') || 3000);
 app.use(express.static(gconfig.STATIC_DIR));
 app.use(bodyParser.json());
 app.use(morgan('combined'));

@@ -4,7 +4,8 @@
   "description": "Contact your representative in the Hungarian Parliament.",
   "main": "repfinder.js",
   "scripts": {
-    "test": "gulp test"
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "config": "^1.21.0",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "morgan": "^1.7.0",
