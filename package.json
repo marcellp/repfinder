@@ -1,0 +1,34 @@
+{
+  "name": "repfinder",
+  "version": "0.1.0",
+  "description": "Contact your representative in the Hungarian Parliament.",
+  "main": "repfinder.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcellp/repfinder.git"
+  },
+  "author": "Marcell Pék",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcellp/repfinder/issues"
+  },
+  "homepage": "https://github.com/marcellp/repfinder#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.3.7",
+    "autoprefixer-core": "^6.0.1",
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
+    "gulp-changed": "^1.3.0",
+    "gulp-imagemin": "^3.0.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-postcss": "^6.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.2.2"
+  },
+  "dependencies": {}
+}
