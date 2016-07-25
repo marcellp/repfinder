@@ -1,0 +1,129 @@
+@import "bootstrap";
+@import "bootstrap/theme";
+
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,latin-ext);
+
+body {
+	overflow-x: hidden;
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 21px;
+	transition: height .1s linear;
+}
+
+header {
+	background-image: url('../img/parliament.jpg');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: center center;
+	background-size: cover;
+
+	.form-container {
+		padding-top: 200px;
+		padding-bottom: 250px;
+
+		.form-title {
+			font-family: 'Roboto Slab', serif;
+			text-transform: uppercase;
+			font-size: 40px;
+			line-height: 40px;
+			margin-bottom: 25px;
+			color: #EDEDED;
+			text-align: center;  
+		}
+
+		.form-heading {
+			font-family: 'Roboto Slab', serif;
+			font-weight: 700;
+			font-size: 75px;
+			line-height: 75px;
+			margin-bottom: 50px;
+			color: #EDEDED;
+			text-align: center;
+		}
+
+		.whitebox {
+			background-color: #fff;
+			padding: 0;
+			border-radius: 5px;
+			float: none;
+			box-shadow: 0 2px 7px 0 rgba(100,100,100,.18);
+			animation-name: fadeInUp;
+			animation-duration: 2s;
+
+			.submit-form {
+				padding: 27px 30px 27px;
+
+				label {
+					letter-spacing: .15em;
+					font-size: 12px;
+					color: #555;
+					font-weight: 400;
+					margin-bottom: 7px;
+					display: inline-block;
+					max-width: 100%;    
+					text-transform: uppercase;
+				}
+
+				.input-error {
+					background-color: #fff;
+					border-color: #ebccd1;
+					color: #a94442;
+				}				
+
+			}
+
+		}
+
+	}
+}
+
+@keyframes fadeInUp {
+	0% {
+		opacity:0;
+		transform:translate(0,30%)
+	}
+	100% {
+		opacity:1;
+		transform:translate(0,0)
+	}
+}
+
+section {
+	padding: 150px 0 150px 0;
+	background: linear-gradient(to bottom,#eee,#fff);
+	h2.section-heading {
+		font-size: 40px;
+		margin-top: 0;
+		font-family: 'Roboto Slab', serif;
+	}
+
+	.whyuseit {
+		margin-top: 30px;
+	}	
+}
+
+#submit-error {
+	display: hidden;
+}
+
+footer {
+	.footer-main {
+		border-top: 1px solid #A1A1A1;
+		border-color: rgba(0,0,0,.1);
+		text-align: center;
+		padding: 3em 0;
+
+		.copyright {
+			line-height: 40px;
+			font-family: 'Roboto Slab', serif;
+			text-transform: uppercase;
+		}
+
+		.fine-print {
+			font-size: 0.75em;
+			color: #555;
+		}	
+
+	}
+}
