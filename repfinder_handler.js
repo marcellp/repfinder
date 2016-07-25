@@ -4,7 +4,7 @@ var request = require('request');
 var turf = require('turf');
 var fs = require('fs');
 var path = require('path');
-var apiKeys = require('api-keys');
+var apiKeys = require('./api-keys');
 var parseString = require('xml2js').parseString;
 
 var findRep = function(req, res) {
