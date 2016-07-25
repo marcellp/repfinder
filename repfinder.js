@@ -1,7 +1,10 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var path = require('path');
 var gconfig = require('./gulp/config');
+var api = require('./repfinder_handler');
 var app = express();
 
 app.disable = ('x-powered-by');
@@ -11,24 +14,26 @@ app.set('view engine', '.hbs');
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(gconfig.STATIC_DIR));
+app.use(bodyParser.json());
+app.use(morgan('combined'));
 
 app.get('/', function(req, res) { res.render('body'); });
 
 app.post('/get-details', function(req, res) {
-    res.json({ a: 1000 });
+	api.findRep(req, res);
 });
 
-app.use(function(req, res){
-	res.type('text/html');
-	res.status(404);
-	res.render('404');
+app.use(function(req, res) {
+  res.type('text/html');
+  res.status(404);
+  res.render('404');
 });
 
-app.use(function(err, req, res, next){
-	console.err(err.stack);
-	res.type('text/html');
-	res.status(500);
-	res.render('500');
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.type('text/html');
+  res.status(500);
+  res.render('500');
 });
 
 app.listen(app.get('port'), function() {
