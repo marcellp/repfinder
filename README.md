@@ -63,3 +63,9 @@ Once all dependencies have been installed, you can run the app via:
 ```
 node repfinder
 ````
+
+License
+-------
+repfinder is an open source project covered by the MIT license. The
+picture of the Hungarian Parliament Building is relased under the
+CC BY-SA 4.0 license (author: Andrew Shiva).
